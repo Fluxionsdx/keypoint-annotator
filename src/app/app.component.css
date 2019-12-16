@@ -1,8 +1,21 @@
 .left-side{
 	width: 15%;
 	float: left;
-	overflow: auto;
+	overflow-y: scroll;
+	position: fixed;
+	display: inline-block;
 	cursor: pointer;
+	top: 0vh;
+	bottom: 0vh;
+	border-right: 1vw solid black;
+}
+
+.left-side div {
+	font-size: 1.25em;
+}
+
+.left-side div:hover{
+	color: blue;
 }
 
 .right-side{
@@ -22,14 +35,16 @@
 }
 
 .keyPointSelector{
-	width: 20%;
+	width: 15%;
 	text-align: center;
-	font-size: 2em;
+	font-size: 1.5em;
+	float: left;
 }
 
 #save-button{
-	width: 5vw;
-	font-size: 2em;
+	width: 4vw;
+	font-size: 1.5em;
 	border: 2px solid black;
 	background-color: violet;
 }
+

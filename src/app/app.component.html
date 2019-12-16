@@ -1,6 +1,6 @@
 
 <div class="left-side">
-  <div *ngFor="let name of imageFileNames; let i = index" (click)="selectImage(name)" class="image-label" [ngStyle]="fileNameLabelStyles[i]">{{name}}</div>
+  <div *ngFor="let name of imageFileNames; let i = index" (click)="selectImage(name, i)" class="image-label" [ngStyle]="fileNameLabelStyles[i]">{{name}}</div>
 </div>
 
 <div class="right-side">
@@ -12,7 +12,8 @@
   </div>
 
   <canvas id="canvas" (click)="drawKeyPoint()"></canvas>
-  <div id="save-button" (click)="createJSONFile()">Save</div>
+  <div id="save-button" (click)="createJSONFile()" *ngIf="showSaveButton">Save</div>
+  <div id="toggle-labels" (click)="toggleLabels()"> Toggle Labels </div>
 
-  <div *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" [ngStyle]="keyPointsLabelStyles[keyPoint]">{{keyPoint}}</div>
+  <div class="keyPointLabel" *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" [ngStyle]="keyPointsLabelStyles[keyPoint]">{{keyPoint}}</div>
 </div>

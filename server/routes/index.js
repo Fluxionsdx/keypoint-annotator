@@ -11,5 +11,6 @@ var auth = jwt({
 var fnc = require('../controllers/fileNames');
 
 router.get('/fileNames/:type', fnc.getFileNames)
+router.get('/annotation/:fileName', fnc.getAnnotation)
 
 module.exports = router;
