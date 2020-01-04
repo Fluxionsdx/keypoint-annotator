@@ -8,7 +8,7 @@ var sendJSONresponse = function(res, status, content){
 
 module.exports.getFileNames = function(req, res){
 	console.log("inside getFileNames()")
-	let imagePath = "/Users/Josh/exercise_data/left_side/" + req.params["type"]
+	let imagePath = "/Users/Josh/exercise_data/side_delt_raise/" + req.params["type"]
 	var imageFileNames = []
 	var labelFileNames = []
 	fs.readdir(imagePath, function(err, fileNames) {	
@@ -29,7 +29,7 @@ module.exports.getFileNames = function(req, res){
 }
 
 module.exports.getAnnotation = function(req, res){
-	const fileName = "/Users/Josh/exercise_data/left_side/labels/" + req.params.fileName
+	const fileName = "/Users/Josh/exercise_data/side_delt_raise/labels/" + req.params.fileName
 	fs.readFile(fileName, 'utf8', (err, jsonString) => {
 		if(err){
 			sendJSONresponse(res, 401, {

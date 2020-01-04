@@ -25,9 +25,46 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-	document.addEventListener('click', this.getCanvasPos.bind(this), true);
-	this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
-	this.canvasContext = this.canvas.getContext('2d')
+  	document.addEventListener('click', this.getCanvasPos.bind(this), true);
+  	this.canvas = document.getElementById("canvas") as HTMLCanvasElement;
+  	this.canvasContext = this.canvas.getContext('2d')
+
+    document.addEventListener("keydown", event => {
+      if(event.keyCode == 65){
+        this.toggleKeypoint("down")
+      }
+      else if(event.keyCode == 83){
+        this.toggleKeypoint("up")
+      }
+    });
+  }
+
+  public toggleKeypoint(direction){
+    console.log("exerciseSelected: ", this.exerciseSelected)
+    let index = this.keyPointsMap[this.exerciseSelected].indexOf(this.keyPointSelected)
+    console.log("index: ", index)
+    let newKeyPoint;
+    if(direction == "up"){
+      console.log("in up")
+      if(index == this.keyPointsMap[this.exerciseSelected].length - 1){
+          console.log("in up if")
+          newKeyPoint = this.keyPointsMap[this.exerciseSelected][0]
+      }
+      else{
+        console.log("in up else")
+        console.log(this.keyPointsMap[this.exerciseSelected][index + 1])
+        newKeyPoint = this.keyPointsMap[this.exerciseSelected][index + 1]
+      }
+      
+    }
+    else{
+         if(index == 0){
+          return
+          }
+      newKeyPoint = this.keyPointsMap[this.exerciseSelected][index - 1]
+    }
+    this.selectKeyPoint(newKeyPoint)
+    
   }
 
 
@@ -175,7 +212,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public exerciseSelected = "bicepscurl"
   public keyPointSelected = "L-Shoulder"
   public keyPointsMap = {
-  	"bicepscurl" : ["L-Shoulder", "L-Elbow", "L-Wrist", "L-Hip", "L-Ankle", "L-Knee", "R-Shoulder", "R-Elbow", "R-Wrist", "R-Hip", "R-Ankle", "R-Knee", "Chin", "T-Head"]
+  	"bicepscurl" : ["L-Shoulder", "L-Elbow", "L-Wrist", "L-Hip",  "L-Knee", "L-Ankle", "R-Ankle", "R-Knee", "R-Hip", "R-Wrist", "R-Elbow", "R-Shoulder", "Chin", "T-Head"]
   }
 
   public getBlankAnnotation(){
@@ -368,6 +405,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   public selectKeyPoint(keyPoint){
+    console.log("keyPoint: ", keyPoint)
     this.toggleLabels()
   	this.keyPointSelected = keyPoint;
   	for(var i = 0; i < this.keyPointsMap[this.exerciseSelected].length; i++){
