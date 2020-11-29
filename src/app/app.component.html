@@ -1,19 +1,57 @@
 
 <div class="left-side">
-  <div *ngFor="let name of imageFileNames; let i = index" (click)="selectImage(name, i)" class="image-label" [ngStyle]="fileNameLabelStyles[i]">{{name}}</div>
+  <div class="user-container">
+    <div (click)="selectUser(user)" class="user-label" *ngFor="let user of users"> {{user}}</div>
+  </div>
+  <div *ngFor="let name of imageFileNames; let i = index" (click)="selectImage(name, i)" class="image-label" [ngStyle]="fileNameLabelStyles[i]">
+    <div *ngIf="showFilename(name)"> {{name}} </div>
+  </div>
 </div>
 
 <div class="right-side">
-  <div *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" 
-      [ngStyle]="keyPointsStylesMap[keyPoint]" 
-      (click)="selectKeyPoint(keyPoint)"
-      class="keyPointSelector"
-  >{{keyPoint}}
+
+  <div *ngIf="annotationType == 'exercise' ">
+    <div *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" 
+        [ngStyle]="keyPointsStylesMap[keyPoint]" 
+        (click)="selectKeyPoint(keyPoint)"
+        class="keyPointSelector"
+    >{{keyPoint}}
+    </div>
+  </div>
+
+  <div *ngIf="annotationType == 'fretboard' ">
+    <div *ngFor="let keyPoint of fretboardKeypoints" 
+        [ngStyle]="fretboardSelectorsMap[keyPoint]" 
+        (click)="selectKeyPoint(keyPoint)"
+        class="fretboard-keypoint"
+    >{{keyPoint}}
+    </div>
+  </div>
+
+
+  <div *ngIf="annotationType == 'hand' ">
+    <div *ngFor="let keyPoint of handKeypoints" 
+        [ngStyle]="handSelectorsMap[keyPoint]" 
+        (click)="selectKeyPoint(keyPoint)"
+        class="fretboard-keypoint"
+    >{{keyPoint}}
+    </div>
   </div>
 
   <canvas id="canvas" (click)="drawKeyPoint()"></canvas>
   <div id="save-button" (click)="createJSONFile()" *ngIf="showSaveButton">Save</div>
   <div id="toggle-labels" (click)="toggleLabels()"> Toggle Labels </div>
 
-  <div class="keyPointLabel" *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" [ngStyle]="keyPointsLabelStyles[keyPoint]">{{keyPoint}}</div>
+  <div *ngIf="annotationType == 'exercise' ">
+    <div class="keyPointLabel" *ngFor="let keyPoint of keyPointsMap[this.exerciseSelected]" [ngStyle]="keyPointsLabelStyles[keyPoint]">{{keyPoint}}</div>
+  </div>
+
+  <div *ngIf="annotationType == 'fretboard' ">
+    <div class="keyPointLabel" *ngFor="let keyPoint of fretboardKeypoints" [ngStyle]="fretboardLabelStyles[keyPoint]">{{keyPoint}}</div>
+  </div>
+
+  <div *ngIf="annotationType == 'hand' ">
+    <div class="keyPointLabel" *ngFor="let keyPoint of handKeypoints" [ngStyle]="handLabelStyles[keyPoint]">{{keyPoint}}</div>
+  </div>
+
 </div>

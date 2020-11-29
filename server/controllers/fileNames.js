@@ -8,17 +8,21 @@ var sendJSONresponse = function(res, status, content){
 
 module.exports.getFileNames = function(req, res){
 	console.log("inside getFileNames()")
-	let imagePath = "/Users/Josh/exercise_data/side_delt_raise/" + req.params["type"]
-	var imageFileNames = []
-	var labelFileNames = []
-	fs.readdir(imagePath, function(err, fileNames) {	
+	//let path = "/Users/Josh/exercise_data/side_delt_raise/" + req.params["type"]
+	let path;
+	if(req.params["type"] == "images"){
+		path = "/Users/Josh/chord_recognition_data/movies/pvy_gbr_01/image"
+	}
+	else if(req.params["type"] == "labels"){
+		path = "/Users/Josh/chord_recognition_data/movies/pvy_gbr_01/keypoints"
+	}
+	fs.readdir(path, function(err, fileNames) {	
 		if(err){
 			sendJSONresponse(res, 401, {
 				message : err
 			});
 		}
 		else{
-			imageFileNames = fileNames
 			response = {
 				"fileNames" : fileNames,
 			}
@@ -29,7 +33,9 @@ module.exports.getFileNames = function(req, res){
 }
 
 module.exports.getAnnotation = function(req, res){
-	const fileName = "/Users/Josh/exercise_data/side_delt_raise/labels/" + req.params.fileName
+	//const fileName = "/Users/Josh/exercise_data/side_delt_raise/labels/" + req.params.fileName
+	console.log("req.params.fileName: ", req.params.fileName)
+	const fileName = "/Users/Josh/chord_recognition_data/movies/pvy_gbr_01/keypoints/" + req.params.fileName
 	fs.readFile(fileName, 'utf8', (err, jsonString) => {
 		if(err){
 			sendJSONresponse(res, 401, {

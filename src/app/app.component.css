@@ -41,6 +41,13 @@
 	float: left;
 }
 
+.fretboard-keypoint{
+	width: 7vw;
+	text-align: center;
+	font-size: 1.5em;
+	float: left;
+}
+
 #save-button{
 	width: 4vw;
 	font-size: 1.5em;
@@ -48,3 +55,12 @@
 	background-color: violet;
 }
 
+.user-container{
+	border-bottom: 4px solid black;
+	overflow: auto;
+}
+
+.user-label{
+	width: 5vw;
+	float: left;
+}
